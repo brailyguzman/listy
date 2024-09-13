@@ -1,5 +1,7 @@
 #include "../include/listy.h"
 
+#include <stdlib.h>
+
 #include "../include/todo_io.h"
 
 Todo create_todo(char* text) {
