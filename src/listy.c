@@ -20,5 +20,7 @@ Todo create_todo(char* text) {
 			newTodo.completed, newTodo.created);
 	fclose(fptr);
 
+	free((void*)path);
+
 	return newTodo;
 }
