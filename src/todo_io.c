@@ -52,7 +52,6 @@ const char* get_todo_path() {
 
 int count_lines() {
 	const char* full_path = get_todo_path();
-	printf("%s\n", full_path);
 
 	FILE* fptr;
 	fptr = fopen(full_path, "r");
