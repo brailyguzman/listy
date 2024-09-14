@@ -4,15 +4,15 @@
 #include <string.h>
 #include <sys/stat.h>
 
-void ensure_directory_exists(const char* path) {
-	char* dir_name = strdup(path);
+void ensure_directory_exists(const char *path) {
+	char *dir_name = strdup(path);
 
 	if (dir_name == NULL) {
 		perror("Error duplicating path");
 		return;
 	}
 
-	char* last_slash = strrchr(dir_name, '/');
+	char *last_slash = strrchr(dir_name, '/');
 
 	if (last_slash == NULL) {
 		perror("Error locating the last occurrence of the forward slash");
@@ -29,15 +29,15 @@ void ensure_directory_exists(const char* path) {
 	free(dir_name);
 }
 
-const char* get_todo_path() {
-	const char* home = getenv("HOME");
+const char *get_todo_path() {
+	const char *home = getenv("HOME");
 
 	if (home == NULL) {
 		perror("Error getting home directory");
 		return NULL;
 	}
 
-	char* full_path = malloc(strlen(home) + strlen("/listy/todo.txt") + 1);
+	char *full_path = malloc(strlen(home) + strlen("/listy/todo.txt") + 1);
 
 	if (full_path == NULL) {
 		perror("Error allocating memory for the todo path");
@@ -51,14 +51,13 @@ const char* get_todo_path() {
 }
 
 int count_lines() {
-	const char* full_path = get_todo_path();
+	const char *full_path = get_todo_path();
 
-	FILE* fptr;
+	FILE *fptr;
 	fptr = fopen(full_path, "r");
 
 	if (fptr == NULL) {
-
-        ensure_directory_exists(full_path);
+		ensure_directory_exists(full_path);
 		fptr = fopen(full_path, "w");
 
 		if (fptr == NULL) {
@@ -77,7 +76,7 @@ int count_lines() {
 	}
 
 	fclose(fptr);
-	free((void*)full_path);
+	free((void *)full_path);
 
 	return lines;
 }
