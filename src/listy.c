@@ -30,38 +30,39 @@ Todo create_todo(char *text) {
 	return newTodo;
 }
 
-// TODO: Implement a better structure of the data printed.
 void show_todo() {
 	const char *path = get_todo_path();
+	FILE *fptr = fopen(path, "r");
+	if (fptr == NULL) {
+		perror("Error opening file");
+		return;
+	}
 
-	FILE *fptr;
-	fptr = fopen(path, "r");
 	char line[500];
 	const char delimiter[] = "__-";
+	printf("%-5s %-30s %-10s %-20s\n", "ID", "Text", "Completed", "Created");
+	printf("------------------------------------------------------------\n");
 
 	while (fgets(line, sizeof(line), fptr)) {
 		line[strcspn(line, "\n")] = '\0';
 		char *part = strtok(line, delimiter);
+
+		Todo todo;
 		int count = 0;
 
 		while (part != NULL) {
 			switch (count) {
 				case 0:
-					printf("ID: %s | ", part);
+					todo.id = atoi(part);
 					break;
 				case 1:
-					printf("Text: %s | ", part);
+					todo.text = part;
 					break;
 				case 2:
-					if (strcmp(part, "0") == 0) {
-						printf("Completed: %sFALSE%s | ", YEL, RESET);
-					} else {
-						printf("Completed: %sTRUE%s | ", GRN, RESET);
-					}
-
+					todo.completed = atoi(part);
 					break;
 				case 3:
-					printf("Created: %s", part);
+					todo.created = atol(part);
 					break;
 				default:
 					break;
@@ -71,8 +72,15 @@ void show_todo() {
 			part = strtok(NULL, delimiter);
 		}
 
-		printf("\n");
+		char formatted_time[20];
+		time_t now = time(NULL);
+		strftime(formatted_time, sizeof(formatted_time), "%Y-%m-%d %H:%M:%S",
+				 localtime(&todo.created));
+
+			printf("%-5d %-30s %-10s %-20s\n", todo.id, todo.text,
+				   todo.completed ? "TRUE" : "FALSE", formatted_time);
 	}
+
 	fclose(fptr);
 	free((void *)path);
 }
