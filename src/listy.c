@@ -77,8 +77,8 @@ void show_todo() {
 		strftime(formatted_time, sizeof(formatted_time), "%Y-%m-%d %H:%M:%S",
 				 localtime(&todo.created));
 
-			printf("%-5d %-30s %-10s %-20s\n", todo.id, todo.text,
-				   todo.completed ? "TRUE" : "FALSE", formatted_time);
+		printf("%-5d %-30s %-10s %-20s\n", todo.id, todo.text,
+			   todo.completed ? "TRUE" : "FALSE", formatted_time);
 	}
 
 	fclose(fptr);
