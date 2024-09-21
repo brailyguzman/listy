@@ -4,7 +4,6 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "../include/colors.h"
 #include "../include/todo_io.h"
 
 Todo create_todo(char *text) {
@@ -73,7 +72,6 @@ void show_todo() {
 		}
 
 		char formatted_time[20];
-		time_t now = time(NULL);
 		strftime(formatted_time, sizeof(formatted_time), "%Y-%m-%d %H:%M:%S",
 				 localtime(&todo.created));
 
