@@ -33,7 +33,14 @@ void show_todo() {
 	const char *path = get_todo_path();
 	FILE *fptr = fopen(path, "r");
 	if (fptr == NULL) {
-		perror("Error opening file");
+		printf("You need to create a todo, use the 'add' flag\n");
+		return;
+	}
+
+	int count = count_lines();
+
+	if (count < 1) {
+		printf("You don't have any todos to show.\n");
 		return;
 	}
 
