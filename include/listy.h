@@ -11,6 +11,6 @@ typedef struct {
 } Todo;
 
 Todo create_todo(char*);
-void show_todo();
+void show_todos();
 
 #endif

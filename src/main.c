@@ -6,8 +6,8 @@
 
 int main(int argc, char *argv[]) {
     if (argc == 1) {
-        // Since no extra arguments were provided, we logging our todo
-        show_todo();
+        // Since no extra arguments were provided, we logging our todos
+        show_todos();
         return 0;
     }
 

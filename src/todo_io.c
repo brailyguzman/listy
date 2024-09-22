@@ -37,7 +37,7 @@ const char *get_todo_path() {
 		return NULL;
 	}
 
-	char *full_path = malloc(strlen(home) + strlen("/listy/todo.txt") + 1);
+	char *full_path = malloc(strlen(home) + strlen("/listy/todos.txt") + 1);
 
 	if (full_path == NULL) {
 		perror("Error allocating memory for the todo path");
@@ -45,7 +45,7 @@ const char *get_todo_path() {
 	}
 
 	strcpy(full_path, home);
-	strcat(full_path, "/listy/todo.txt");
+	strcat(full_path, "/listy/todos.txt");
 
 	return full_path;
 }

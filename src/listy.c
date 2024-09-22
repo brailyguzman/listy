@@ -29,7 +29,7 @@ Todo create_todo(char *text) {
 	return newTodo;
 }
 
-void show_todo() {
+void show_todos() {
 	const char *path = get_todo_path();
 	FILE *fptr = fopen(path, "r");
 	if (fptr == NULL) {
