@@ -28,10 +28,8 @@ int main(int argc, char *argv[]) {
         }
     } else if (strcmp(first_arg, "remove") == 0) {
         // run the remove todo function, get the ID from the [2] index;
-        return 0;
     } else if (strcmp(first_arg, "update") == 0) {
         // run the update todo function
-        return 0;
     }
     return 0;
 }
