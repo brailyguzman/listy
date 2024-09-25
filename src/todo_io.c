@@ -1,5 +1,6 @@
 #include "../include/todo_io.h"
 
+#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <sys/stat.h>
@@ -48,6 +49,27 @@ const char *get_todo_path() {
 	strcat(full_path, "/listy/todos.txt");
 
 	return full_path;
+}
+
+const char *get_temp_path() {
+	const char *home = getenv("HOME");
+
+	if (home == NULL) {
+		perror("Error getting home directory");
+		return NULL;
+	}
+
+	char *temp_path = malloc(strlen((home) + strlen("/listy/temp.txt") + 1));
+
+	if (temp_path == NULL) {
+		perror("Error allocating memory for the temp path");
+		return NULL;
+	}
+
+	strcpy(temp_path, home);
+	strcat(temp_path, "/listy/temp.txt");
+
+	return temp_path;
 }
 
 int count_lines() {
