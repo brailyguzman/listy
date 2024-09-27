@@ -6,7 +6,7 @@ A sleek and efficient Todo List app directly in your terminal
 
 -   [x] Create Todo
 -   [x] Show Todo
--   [ ] Delete Todo
+-   [ ] Delete Todo (work in progress)
 -   [ ] Update Todo
 
 - ... Thinking of more features to add.
