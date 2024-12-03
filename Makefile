@@ -11,7 +11,7 @@ SRCDIR = src
 INCLUDEDIR = include
 
 # Source and object files
-SRCS = $(SRCDIR)/listy.c $(SRCDIR)/main.c $(SRCDIR)/io.c
+SRCS = $(SRCDIR)/listy.c $(SRCDIR)/main.c $(SRCDIR)/todo_io.c
 OBJS = $(SRCS:.c=.o)
 
 # Installation directory
