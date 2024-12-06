@@ -2,6 +2,7 @@
 A sleek and efficient Todo List app directly in your terminal
 
 ## Features
+- [x] View
 - [x] Add
 - [ ] Remove
 - [ ] Edit
