@@ -6,6 +6,7 @@
 int main(int argc, char** argv) {
 	if (argc <= 1) {
 		// Todo: Display the current todos.
+		view_todos();
 		return 0;
 	}
 
@@ -15,7 +16,7 @@ int main(int argc, char** argv) {
 	}
 
 	if (strcmp(argv[1], "add") == 0) {
-		char text[100];
+		char text[TASK_SIZE];
 		printf("%s[?]%s Enter Todo: ", YEL, RESET);
 
 		if (fgets(text, sizeof(text), stdin) != NULL) {
