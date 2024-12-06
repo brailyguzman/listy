@@ -1,15 +1,15 @@
 #include "todo_io.h"
 
 char* get_path() {
-	const char* home = getenv("HOME");
+	char* home = getenv("HOME");
 
 	if (home == NULL) {
 		fprintf(stderr, "Error: Home environment variable is not set.\n");
 		return NULL;
 	}
 
-	const char* dir_name = "/listy";
-	const char* listy_file = "/todos.txt";
+	char* dir_name = "/listy";
+	char* listy_file = "/todos.txt";
 
 	// Allocate memory for the directory path.
 	size_t dir_path_len = strlen(home) + strlen(dir_name) + 1;
