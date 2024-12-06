@@ -1,11 +1,9 @@
 #ifndef LISTY_H
 #define LISTY_H
 
-typedef struct {
-	char* text;
-	int completed;	// 0: True, 1: False
-} Todo;
+#include <todo_io.h>
 
-void add(char* text);
+int new_id(char* path);
+int add(char* text);
 
 #endif
