@@ -1,15 +1,19 @@
 #include <listy.h>
 
 void view_todos() {
+	// Get the todos.txt path - (allocated memory needs to be released).
 	char* path = get_path("/todos.txt");
 
+	// Check if the path is NULL
 	if (path == NULL) {
 		fprintf(stderr, "Error: Failed to get file path.\n");
 		return;
 	}
 
+	// Open the file from the path we got - (stream needs to be closed).
 	FILE* fptr = fopen(path, "r");
 
+	// Check if we were able to open the file.
 	if (fptr == NULL) {
 		fprintf(stderr, "Error: Unable to open todos file (%s).\n", path);
 		free(path);
@@ -17,17 +21,25 @@ void view_todos() {
 		return;
 	}
 
-	int c = fgetc(fptr);
+	// Get the first character in the file.
+	int ch = fgetc(fptr);
 
-	if (c == EOF) {
+	// Check if the character is equivelent to the End of Line (EOF) character.
+	// If so, this means that the file is empty, and there are no todos to show.
+	if (ch == EOF) {
 		fclose(fptr);
 		free(path);
 		printf("No todos to show!\n");
 
 		return;
+	} else {
+		// Push the character back to the stream.
+		ungetc(ch, fptr);
 	}
 
+	// Create line variable with a size of LINE_LENGTH.
 	char line[LINE_LENGTH];
+	// Store the delimiter which will divide id, text, and status.
 	char* delimiter = "|";
 
 	// Print header with appropriate widths
@@ -35,27 +47,37 @@ void view_todos() {
 	printf("%s%-5s %-40s %-20s%s\n", GRN, "-----",
 		   "----------------------------------------", "-------------", RESET);
 
+	// Get every line on the file.
 	while (fgets(line, sizeof(line), fptr)) {
+		// Check if any of the lines are invalid, and skip them.
 		if (line[0] == '\0' || line[0] == '\n') {
 			continue;
 		}
 
+		// Store a count representing which token we are working with.
 		int count = 0;
 
+		// Get first token of the line. Initial will be the ID.
 		char* token = strtok(line, delimiter);
+
+		// Create variables for storing the tokens we gather.
 		char id[ID_SIZE] = "";
 		char task[TASK_SIZE] = "";
 		char status[STATUS_SIZE] = "";
 
 		while (token != NULL) {
 			switch (count) {
+				// ID
 				case 0:
 					strncpy(id, token, sizeof(id) - 1);
 					break;
+				// TASK
 				case 1:
 					strncpy(task, token, sizeof(task) - 1);
 					break;
+				// Completion
 				case 2:
+					// Store it as a human readable format.
 					if (atoi(token) == 0) {
 						snprintf(status, sizeof(status), "%s✅ Completed%s",
 								 GRN, RESET);
@@ -68,20 +90,24 @@ void view_todos() {
 					break;
 			}
 
+			// Increase the count to go to the next token.
 			count++;
 			token = strtok(NULL, delimiter);
 		}
 
+		// Truncate the text to be displayed property with the header.
 		if (strlen(task) > MAX_TASK_LENGTH) {
 			task[MAX_TASK_LENGTH] = '\0';
 			strcat(task, "...");
 		}
 
+		// Display the Todo
 		printf("%-5s %-40s %-20s\n", id, task, status);
 	}
 
 	printf("\n");
 
+	// Close the stream and release the memory for the path.
 	fclose(fptr);
 	free(path);
 }
@@ -135,9 +161,9 @@ int add_todo(char* text) {
 		return -1;
 	}
 
-	int id = get_new_id(path);
+	int todo_id = get_new_id(path);
 
-	if (id == -1) {
+	if (todo_id == -1) {
 		return -1;
 	}
 
@@ -145,11 +171,13 @@ int add_todo(char* text) {
 
 	text[strcspn(text, "\n")] = '\0';
 
-	snprintf(line, sizeof(line), "%d|%s|%d\n", id, text, 1);
+	snprintf(line, sizeof(line), "%d|%s|%d\n", todo_id, text, 1);
 	fputs(line, fptr);
 
 	free(path);
 	fclose(fptr);
+
+	view_todos();
 
 	return 0;
 }
@@ -212,9 +240,9 @@ int edit_todo(int id, int delete) {
 				newStatus = 1;
 			}
 
-			fprintf(temp_fptr, "%s|%s|%d", id_str, line_task, newStatus);
+			fprintf(temp_fptr, "%s|%s|%d\n", id_str, line_task, newStatus);
 		} else {
-			fprintf(temp_fptr, "%s|%s|%s", id_str, line_task, status_str);
+			fprintf(temp_fptr, "%s|%s|%s\n", id_str, line_task, status_str);
 		}
 	}
 
