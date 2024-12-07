@@ -285,5 +285,7 @@ int edit_todo(int id, int delete) {
 	free(todos_path);
 	free(temp_path);
 
+	view_todos();
+
 	return 0;
 }
