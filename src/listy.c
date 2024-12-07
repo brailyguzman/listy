@@ -24,8 +24,8 @@ void view_todos() {
 	// Get the first character in the file.
 	int ch = fgetc(fptr);
 
-	// Check if the character is equivelent to the End of Line (EOF) character.
-	// If so, this means that the file is empty, and there are no todos to show.
+	// Check if the character is equivalent to the End of Line (EOF) character.
+	// If so, this means the file is empty, and there are no todos to show.
 	if (ch == EOF) {
 		fclose(fptr);
 		free(path);
@@ -57,10 +57,10 @@ void view_todos() {
 		// Store a count representing which token we are working with.
 		int count = 0;
 
-		// Get first token of the line. Initial will be the ID.
+		// Get the first token of the line. The initial will be the ID.
 		char* token = strtok(line, delimiter);
 
-		// Create variables for storing the tokens we gather.
+		// Create variables to store the tokens we gather.
 		char id[ID_SIZE] = "";
 		char task[TASK_SIZE] = "";
 		char status[STATUS_SIZE] = "";
@@ -95,7 +95,7 @@ void view_todos() {
 			token = strtok(NULL, delimiter);
 		}
 
-		// Truncate the text to be displayed property with the header.
+		// Truncate the text to be displayed properly with the header.
 		if (strlen(task) > MAX_TASK_LENGTH) {
 			task[MAX_TASK_LENGTH] = '\0';
 			strcat(task, "...");
