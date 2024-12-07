@@ -9,12 +9,12 @@ int main(int argc, char** argv) {
 		return 0;
 	}
 
-	if (strcmp(argv[1], "help") == 0) {
-		// Todo: Display a guide on how to use the commands.
+	if (strstr(argv[1], "help")) {
+		// TODO: Help command should display available commands.
 		return 0;
 	}
 
-	if (strcmp(argv[1], "add") == 0) {
+	if (strstr(argv[1], "add")) {
 		if (argv[2] != NULL) {
 			int result = add_todo(argv[2]);
 
@@ -37,7 +37,7 @@ int main(int argc, char** argv) {
 		return 0;
 	}
 
-	if (strcmp(argv[1], "remove") == 0) {
+	if (strstr(argv[1], "remove")) {
 		if (argv[2] != NULL) {
 			int id = atoi(argv[2]);
 
@@ -54,7 +54,7 @@ int main(int argc, char** argv) {
 		}
 	}
 
-	if (strcmp(argv[1], "done") == 0) {
+	if (strstr(argv[1], "done")) {
 		if (argv[2] != NULL) {
 			int id = atoi(argv[2]);
 
