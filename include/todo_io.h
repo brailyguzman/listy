@@ -8,6 +8,6 @@
 
 #include "dirent.h"
 
-char* get_path();
+char* get_path(char* file_path);
 
 #endif

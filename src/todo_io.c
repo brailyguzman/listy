@@ -1,6 +1,6 @@
 #include "todo_io.h"
 
-char* get_path() {
+char* get_path(char* file_path) {
 	char* home = getenv("HOME");
 
 	if (home == NULL) {
@@ -9,7 +9,6 @@ char* get_path() {
 	}
 
 	char* dir_name = "/listy";
-	char* listy_file = "/todos.txt";
 
 	// Allocate memory for the directory path.
 	size_t dir_path_len = strlen(home) + strlen(dir_name) + 1;
@@ -38,7 +37,7 @@ char* get_path() {
 		}
 	}
 
-	size_t full_path_len = strlen(dir_path) + strlen(listy_file) + 1;
+	size_t full_path_len = strlen(dir_path) + strlen(file_path) + 1;
 	char* full_path = malloc(full_path_len);
 
 	if (full_path == NULL) {
@@ -48,7 +47,7 @@ char* get_path() {
 		return NULL;
 	}
 
-	snprintf(full_path, full_path_len, "%s%s", dir_path, listy_file);
+	snprintf(full_path, full_path_len, "%s%s", dir_path, file_path);
 
 	// Release the memory allocated for dir path.
 	free(dir_path);
