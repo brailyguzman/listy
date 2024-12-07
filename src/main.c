@@ -5,7 +5,6 @@
 
 int main(int argc, char** argv) {
 	if (argc <= 1) {
-		// Todo: Display the current todos.
 		view_todos();
 		return 0;
 	}
@@ -16,23 +15,61 @@ int main(int argc, char** argv) {
 	}
 
 	if (strcmp(argv[1], "add") == 0) {
-		char text[TASK_SIZE];
-		printf("%s[?]%s Enter Todo: ", YEL, RESET);
-
-		if (fgets(text, sizeof(text), stdin) != NULL) {
-			int result = add(text);
+		if (argv[2] != NULL) {
+			int result = add_todo(argv[2]);
 
 			if (result == -1) {
 				return -1;
 			}
+		} else {
+			char text[TASK_SIZE];
+			printf("%s[?]%s Enter Todo: ", YEL, RESET);
 
-			printf("%s[+]%s Added Todo!\n", GRN, RESET);
+			if (fgets(text, sizeof(text), stdin) != NULL) {
+				int result = add_todo(text);
 
-			return 0;
+				if (result == -1) {
+					return -1;
+				}
+			}
+		}
+
+		return 0;
+	}
+
+	if (strcmp(argv[1], "remove") == 0) {
+		if (argv[2] != NULL) {
+			int id = atoi(argv[2]);
+
+			if (id >= 0) {
+				edit_todo(id, 1);
+			} else {
+				fprintf(
+					stderr,
+					"Error: Invalid ID. ID must be a non-negative integer.\n");
+			}
+		} else {
+			fprintf(stderr,
+					"Error: Missing ID argument for 'remove' command.\n");
 		}
 	}
 
-	// TODO: Finish implement CRUD for Todos.
+	if (strcmp(argv[1], "done") == 0) {
+		if (argv[2] != NULL) {
+			int id = atoi(argv[2]);
+
+			if (id >= 0) {
+				edit_todo(id, 0);
+			} else {
+				fprintf(
+					stderr,
+					"Error: Invalid ID. ID must be a non-negative integer.\n");
+			}
+		} else {
+			fprintf(stderr,
+					"Error: Missing ID argument for 'remove' command.\n");
+		}
+	}
 
 	return 0;
 }
