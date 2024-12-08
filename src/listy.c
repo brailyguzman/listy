@@ -47,6 +47,8 @@ void view_todos() {
 	printf("%s%-5s %-40s %-20s%s\n", GRN, "-----",
 		   "----------------------------------------", "-------------", RESET);
 
+	int completed = 0;
+	int incomplete = 0;
 	// Get every line on the file.
 	while (fgets(line, sizeof(line), fptr)) {
 		// Check if any of the lines are invalid, and skip them.
@@ -81,9 +83,11 @@ void view_todos() {
 					if (atoi(token) == 0) {
 						snprintf(status, sizeof(status), "%s✅ Completed%s",
 								 GRN, RESET);
+						completed++;
 					} else if (atoi(token) == 1) {
 						snprintf(status, sizeof(status), "%s❌ Incomplete%s",
 								 MAG, RESET);
+						incomplete++;
 					}
 					break;
 				default:
@@ -105,7 +109,10 @@ void view_todos() {
 		printf("%-5s %-40s %-20s\n", id, task, status);
 	}
 
-	printf("\n");
+	int total = completed + incomplete;
+
+	printf("\n%sTotal: %d%s | %sCompleted: %d%s | %sIncomplete: %d%s\n\n", YEL,
+		   total, RESET, GRN, completed, RESET, RED, incomplete, RESET);
 
 	// Close the stream and release the memory for the path.
 	fclose(fptr);
