@@ -15,7 +15,17 @@ void view_todos() {
 
 	// Check if we were able to open the file.
 	if (fptr == NULL) {
-		fprintf(stderr, "Error: Unable to open todos file (%s).\n", path);
+		fptr = fopen(path, "w");
+
+		if (fptr == NULL) {
+			fprintf(stderr, "Error: Unable to open todos file (%s).\n", path);
+			fclose(fptr);
+			free(path);
+			return;
+		}
+
+		printf("No todos to show!\n");
+		fclose(fptr);
 		free(path);
 
 		return;
