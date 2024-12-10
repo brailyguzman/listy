@@ -59,6 +59,7 @@ void view_todos() {
 
 	int completed = 0;
 	int incomplete = 0;
+
 	// Get every line on the file.
 	while (fgets(line, sizeof(line), fptr)) {
 		// Check if any of the lines are invalid, and skip them.
@@ -76,6 +77,7 @@ void view_todos() {
 		char id[ID_SIZE] = "";
 		char task[TASK_SIZE] = "";
 		char status[STATUS_SIZE] = "";
+		int completed;
 
 		while (token != NULL) {
 			switch (count) {
@@ -90,14 +92,15 @@ void view_todos() {
 				// Completion
 				case 2:
 					// Store it as a human readable format.
-					if (atoi(token) == 0) {
-						snprintf(status, sizeof(status), "%s✅ Completed%s",
-								 GRN, RESET);
+					if (atoi(token) == 1) {
+						snprintf(status, sizeof(status), "✅ Completed");
+
 						completed++;
-					} else if (atoi(token) == 1) {
-						snprintf(status, sizeof(status), "%s❌ Incomplete%s",
-								 MAG, RESET);
+						completed = 1;
+					} else {
+						snprintf(status, sizeof(status), "❌ Incomplete");
 						incomplete++;
+						completed = 0;
 					}
 					break;
 				default:
@@ -115,14 +118,19 @@ void view_todos() {
 			strcat(task, "...");
 		}
 
+		if (completed) {
+			printf("%s%-5s %-40s %-20s%s\n", GRN, id, task, status, RESET);
+		} else {
+			printf("%s%-5s %-40s %-20s%s\n", YEL, id, task, status, RESET);
+		}
+
 		// Display the Todo
-		printf("%-5s %-40s %-20s\n", id, task, status);
 	}
 
 	int total = completed + incomplete;
 
 	printf("\n%sTotal: %d%s | %sCompleted: %d%s | %sIncomplete: %d%s\n\n", YEL,
-		   total, RESET, GRN, completed, RESET, RED, incomplete, RESET);
+		   total, RESET, GRN, completed, RESET, MAG, incomplete, RESET);
 
 	// Close the stream and release the memory for the path.
 	fclose(fptr);
@@ -188,7 +196,7 @@ int add_todo(char* text) {
 
 	text[strcspn(text, "\n")] = '\0';
 
-	snprintf(line, sizeof(line), "%d|%s|%d\n", todo_id, text, 1);
+	snprintf(line, sizeof(line), "%d|%s|%d\n", todo_id, text, 0);
 	fputs(line, fptr);
 
 	free(path);
