@@ -77,7 +77,7 @@ void view_todos() {
 		char id[ID_SIZE] = "";
 		char task[TASK_SIZE] = "";
 		char status[STATUS_SIZE] = "";
-		int completed;
+		int is_completed = 0;
 
 		while (token != NULL) {
 			switch (count) {
@@ -94,13 +94,11 @@ void view_todos() {
 					// Store it as a human readable format.
 					if (atoi(token) == 1) {
 						snprintf(status, sizeof(status), "✅ Completed");
-
+						is_completed = 1;
 						completed++;
-						completed = 1;
 					} else {
 						snprintf(status, sizeof(status), "❌ Incomplete");
 						incomplete++;
-						completed = 0;
 					}
 					break;
 				default:
@@ -118,7 +116,7 @@ void view_todos() {
 			strcat(task, "...");
 		}
 
-		if (completed) {
+		if (is_completed) {
 			printf("%s%-5s %-40s %-20s%s\n", GRN, id, task, status, RESET);
 		} else {
 			printf("%s%-5s %-40s %-20s%s\n", YEL, id, task, status, RESET);
