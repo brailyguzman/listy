@@ -14,6 +14,12 @@ int main(int argc, char** argv) {
 		return 0;
 	}
 
+	if (strstr(argv[1], "clear")) {
+		// TODO: Run clear function
+		clear_todos();
+		return 0;
+	}
+
 	if (strstr(argv[1], "add")) {
 		if (argv[2] != NULL) {
 			int result = add_todo(argv[2]);

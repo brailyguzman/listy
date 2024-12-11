@@ -54,3 +54,27 @@ char* get_path(char* file_path) {
 
 	return full_path;
 }
+
+void clear_todos() {
+	char* path = get_path("/todos.txt");
+
+	if (path == NULL) {
+		fprintf(stderr, "Error: Failed to get file path.\n");
+		return;
+	}
+
+	FILE* fptr = fopen(path, "w");
+
+	if (fptr == NULL) {
+		fprintf(stderr, "Error: Unable to open the todos file (%s): %s\n", path,
+				strerror(errno));
+		free(path);
+
+		return;
+	}
+
+	fclose(fptr);
+	free(path);
+
+	printf("Cleared Todos!\n");
+}

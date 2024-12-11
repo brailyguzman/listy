@@ -2,7 +2,6 @@
 #define LISTY_H
 
 #include <colors.h>
-#include <errno.h>
 #include <todo_io.h>
 
 #define MAX_TASK_LENGTH 37
@@ -16,6 +15,7 @@
 #define TODOS_FILE_NAME "/todos.txt"
 
 void view_todos();
+void clear_todos();
 int new_id(char* path);
 int add_todo(char* text);
 int edit_todo(int id, int remove);
