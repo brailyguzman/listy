@@ -1,6 +1,9 @@
 # Listy
 A sleek and efficient Todo List app directly in your terminal
 
+<img width="692" alt="SCR-20241211-kzrd" src="https://github.com/user-attachments/assets/ea90c012-1c9f-418b-8d16-b9c163ec61a0" />
+
+
 ## Features
 - [x] View
 - [x] Add
