@@ -9,5 +9,6 @@
 #define CYN "\x1B[36m"
 #define WHT "\x1B[37m"
 #define RESET "\x1B[0m"
+#define BOLD "\x1B[1m"
 
 #endif
