@@ -16,8 +16,8 @@
 
 void view_todos();
 void clear_todos();
-int new_id(char* path);
-int add_todo(char* text);
+int new_id(char *path);
+int add_todo(char *text);
 int edit_todo(int id, int remove);
 
 #endif
